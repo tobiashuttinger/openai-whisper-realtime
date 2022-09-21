@@ -7,10 +7,10 @@ This is a quick experiment to achieve almost realtime transcription using Whispe
 Run the script `openai-whisper-realtime.py` with Python 3.7 or greater. 
 
 Dependencies:
-whisper
-sounddevice
-numpy
-asyncio
+- whisper
+- sounddevice
+- numpy
+- asyncio
 
 A very fast CPU or GPU is recommended.
 
