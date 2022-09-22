@@ -7,9 +7,16 @@ import asyncio
 import queue
 import sys
 
-global_ndarray = None
 
-model = whisper.load_model("base")
+# SETTINGS
+MODEL_TYPE="base.en"
+# the model used for transcription. https://github.com/openai/whisper#available-models-and-languages
+BLOCKSIZE=24678 
+# this is the fixed chunk size the audio is split into in samples
+
+
+global_ndarray = None
+model = whisper.load_model(MODEL_TYPE)
 
 async def inputstream_generator():
 	"""Generator that yields blocks of input data as NumPy arrays."""
@@ -19,7 +26,7 @@ async def inputstream_generator():
 	def callback(indata, frame_count, time_info, status):
 		loop.call_soon_threadsafe(q_in.put_nowait, (indata.copy(), status))
 
-	stream = sd.InputStream(samplerate=16000, channels=1, dtype='int16', blocksize=24576, callback=callback)
+	stream = sd.InputStream(samplerate=16000, channels=1, dtype='int16', blocksize=BLOCKSIZE, callback=callback)
 	with stream:
 		while True:
 			indata, status = await q_in.get()
@@ -56,7 +63,7 @@ async def main():
 	try:
 		await audio_task
 	except asyncio.CancelledError:
-		print('\nWire was cancelled')
+		print('\nwire was cancelled')
 
 
 if __name__ == "__main__":
@@ -64,4 +71,3 @@ if __name__ == "__main__":
 		asyncio.run(main())
 	except KeyboardInterrupt:
 		sys.exit('\nInterrupted by user')
-
