@@ -1,0 +1,4 @@
+whisper
+sounddevice
+asyncio
+numpy
