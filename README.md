@@ -4,9 +4,18 @@ This is a quick experiment to achieve almost realtime transcription using Whispe
 
 ## How to use
 
-Run the script `openai-whisper-realtime.py` with Python 3.7 or greater. 
+Install the requirements:
+```
+pip install -r requirements.txt
+```
+
+Run the script: 
+```
+python openai-whisper-realtime.py
+```
 
 Dependencies:
+- Python > 3.7
 - whisper
 - sounddevice
 - numpy
